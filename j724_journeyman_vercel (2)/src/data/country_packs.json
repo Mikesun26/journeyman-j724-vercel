@@ -1,0 +1,5 @@
+[
+  { "country":"United Arab Emirates","emergency":{"police":"999","ambulance":"998","fire":"997","universal":"112"},"currency":"AED","plugs":"G","drive":"Right" },
+  { "country":"United Kingdom","emergency":{"police":"999","ambulance":"999","fire":"999","universal":"112"},"currency":"GBP","plugs":"G","drive":"Left" },
+  { "country":"South Africa","emergency":{"police":"10111","ambulance":"10177","fire":"10177","universal":"112"},"currency":"ZAR","plugs":"M","drive":"Left" }
+]

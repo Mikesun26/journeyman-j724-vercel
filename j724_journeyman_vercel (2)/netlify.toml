@@ -1,0 +1,22 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Map /api/* -> serverless functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers (keep API hosts whitelisted)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://earthquake.usgs.gov https://www.gdacs.org https://api.reliefweb.int https://eonet.gsfc.nasa.gov https://nominatim.openstreetmap.org https://overpass-api.de https://z.overpass-api.de https://overpass.kumi.systems https://api.open-meteo.com https://aeroapi.flightaware.com http://api.aviationstack.com https://api.aviationstack.com https://feeds.meteoalarm.org https://api.weather.gov https://opensky-network.org https://worldtimeapi.org https://api.exchangerate.host http://api.weatherstack.com https://api.opensanctions.org https://api.gdeltproject.org; object-src 'none'; base-uri 'self'; frame-ancestors 'self';"

@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; img-src 'self' data: https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://tile.openstreetmap.org https://a.tile.openstreetmap.org https://b.tile.openstreetmap.org https://c.tile.openstreetmap.org https://earthquake.usgs.gov https://www.gdacs.org https://api.reliefweb.int https://eonet.gsfc.nasa.gov https://nominatim.openstreetmap.org https://overpass-api.de https://z.overpass-api.de https://overpass.kumi.systems https://api.open-meteo.com https://aeroapi.flightaware.com http://api.aviationstack.com https://api.aviationstack.com https://feeds.meteoalarm.org https://api.weather.gov https://opensky-network.org https://worldtimeapi.org https://api.exchangerate.host http://api.weatherstack.com https://api.opensanctions.org https://api.gdeltproject.org; object-src 'none'; base-uri 'self'; frame-ancestors 'self';" }
+      ]
+    }
+  ]
+}

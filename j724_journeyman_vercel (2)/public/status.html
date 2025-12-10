@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Journeyman Status</title>
+<style>
+  body{font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial;background:#0a0e28;color:#fff;margin:0;padding:32px}
+  .wrap{max-width:960px;margin:0 auto}
+  .card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px;margin-bottom:14px}
+  .ok{color:#34d399}.bad{color:#f43f5e}.warn{color:#f59e0b}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  code{background:rgba(0,0,0,.35);padding:2px 6px;border-radius:6px}
+  a{color:#93c5fd}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Journeyman – Status</h1>
+  <div id="info" class="card"></div>
+  <div class="grid" id="checks"></div>
+  <div class="card"><strong>API Endpoints</strong>
+    <div><a href="/api/status" target="_blank">/api/status</a> — aggregated diagnostics</div>
+    <div><a href="/api/health" target="_blank">/api/health</a> (Vercel) — minimal ping</div>
+  </div>
+  <div class="card">If items are red, verify environment settings and outbound network egress in your platform.</div>
+</div>
+<script>
+(async function(){
+  const elInfo = document.getElementById('info');
+  const elChecks = document.getElementById('checks');
+  try{
+    const r = await fetch('/api/status');
+    const j = await r.json();
+    elInfo.innerHTML = '<div><strong>Runtime</strong> — Node: <code>'+ (j.runtime?.node||'?') +'</code></div>';
+    const checks = j.checks || {};
+    elChecks.innerHTML = Object.keys(checks).map(k=>{
+      const ok = !!checks[k];
+      const cls = ok ? 'ok' : 'bad';
+      const badge = ok ? 'PASS' : 'FAIL';
+      return '<div class="card"><div><strong>'+k+'</strong></div><div class="'+cls+'">'+badge+'</div></div>';
+    }).join('');
+  }catch(e){
+    elInfo.innerHTML = '<div class="bad">Status check failed. '+ (e&&e.message?e.message:'') +'</div>';
+  }
+})();
+</script>
+</body></html>
